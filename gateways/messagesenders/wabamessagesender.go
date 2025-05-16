@@ -13,7 +13,7 @@ type WabaMessageSender struct {
 }
 
 func (s *WabaMessageSender) Send(m *entities.MessageEntity) error {
-	ok, err := s.Api.SendText("5534991773441", s.Api.WithBody(m.Content))
+	ok, err := s.Api.SendText(m.To, s.Api.WithBody(m.Content))
 	if err != nil {
 		return err
 	}

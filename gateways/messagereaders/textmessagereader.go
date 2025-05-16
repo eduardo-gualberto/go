@@ -22,8 +22,8 @@ func (r TextMessageReader) Read() (*entities.MessageEntity, error) {
 	}
 
 	return &entities.MessageEntity{
-		From:    r.m.GetContact().Profile.Name,
-		To:      r.m.GetContact().Profile.Name,
+		From:    r.m.GetContact().WaID,
+		To:      r.m.GetMetadata().DisplayPhoneNumber,
 		Kind:    entities.AudioContentKind,
 		Content: r.m.GetText().Body,
 	}, nil

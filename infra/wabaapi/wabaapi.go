@@ -2,6 +2,7 @@ package wabaapi
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/eduardo-gualberto/go.git/infra/httpclient"
 )
@@ -11,26 +12,20 @@ type WabaApi struct {
 }
 
 func NewWabaApi(client *httpclient.HttpClient) (*WabaApi, error) {
-	// accessToken := os.Getenv("META_ACCESS_TOKEN")
-	// baseUrl := os.Getenv("META_BASE_URL")
-	// apiVersion := os.Getenv("META_API_VERSION")
-
-	// client, err := httpclient.NewHttpClient(
-	// 	httpclient.WithBaseUrl(fmt.Sprintf("%s/%s", baseUrl, apiVersion)),
-	// 	httpclient.WithHeader("Authorization", fmt.Sprintf("Bearer %s", accessToken)),
-	// 	httpclient.WithHeader("Content-Type", "application/json"),
-	// )
-	// if err != nil {
-	// 	return nil, err
-	// }
 	return &WabaApi{client: client}, nil
 }
 
 func (w *WabaApi) sendMessage(from string, to string, messageType string, messageBody map[string]any) (bool, error) {
-	// Construct the request body
+	number := to
+	r := regexp.MustCompile(`^55(\d{2})(\d{8})$`)
+	to_components := r.FindStringSubmatch(to)
+	if len(to_components) > 0 {
+		number = fmt.Sprintf("55%s9%s", to_components[1], to_components[2])
+	}
+
 	body := map[string]any{
 		"messaging_product": "whatsapp",
-		"to":                to,
+		"to":                number,
 		"type":              messageType,
 	}
 	if messageType == "text" {
