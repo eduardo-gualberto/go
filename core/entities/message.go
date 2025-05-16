@@ -15,3 +15,12 @@ var (
 	ImageContentKind    ContentKind = "image"
 	DocumentContentKind ContentKind = "document"
 )
+
+func NewMessageEntity(from string, to string, content string, kind ContentKind) *MessageEntity {
+	return &MessageEntity{
+		From:    from,
+		To:      to,
+		Content: content,
+		Kind:    kind,
+	}
+}

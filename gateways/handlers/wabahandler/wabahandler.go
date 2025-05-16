@@ -1,4 +1,4 @@
-package handlers
+package wabahandler
 
 import (
 	"fmt"
@@ -8,13 +8,15 @@ import (
 
 	"github.com/eduardo-gualberto/go.git/core/interfaces"
 	"github.com/eduardo-gualberto/go.git/core/usecases"
-	"github.com/eduardo-gualberto/go.git/gateways/chatcompletionllms"
 	"github.com/eduardo-gualberto/go.git/gateways/messagereaders"
-	"github.com/eduardo-gualberto/go.git/gateways/messagesenders"
 	"github.com/eduardo-gualberto/go.git/gateways/models"
 )
 
-func HandleAuthenticate(w http.ResponseWriter, r *http.Request) {
+type WabaHandler struct {
+	RespondToUser *usecases.RespondToUser
+}
+
+func (h *WabaHandler) HandleAuthenticate(w http.ResponseWriter, r *http.Request) {
 	c := r.URL.Query().Get("hub.challenge")
 	m := r.URL.Query().Get("hub.mode")
 	v := r.URL.Query().Get("hub.verify_token")
@@ -26,7 +28,7 @@ func HandleAuthenticate(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusUnauthorized)
 }
 
-func HandleMessage(w http.ResponseWriter, r *http.Request) {
+func (h *WabaHandler) HandleMessage(w http.ResponseWriter, r *http.Request) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -81,16 +83,7 @@ func HandleMessage(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println()
 
-	sender, err := messagesenders.NewWabaMessageSender()
-	if err != nil {
-		fmt.Printf("Failed to instantiate WabaApi: %v\n", err)
-		return
-	}
-
-	oai := chatcompletionllms.NewOpenAiLLM()
-
-	useCase := usecases.RespondToUser{Llm: oai, Sender: sender}
-	result, err := useCase.Execute(&usecases.RespondToUserInput{
+	result, err := h.RespondToUser.Execute(&usecases.RespondToUserInput{
 		Reader: msgReader,
 	})
 	if err != nil {
@@ -103,4 +96,10 @@ func HandleMessage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+}
+
+func NewWabaHandler(usecase *usecases.RespondToUser) *WabaHandler {
+	return &WabaHandler{
+		RespondToUser: usecase,
+	}
 }

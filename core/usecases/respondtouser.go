@@ -54,3 +54,10 @@ func (u *RespondToUser) Execute(input *RespondToUserInput) (*RespondToUserOutput
 	output.Success = true
 	return output, nil
 }
+
+func NewRespondToUser(llm interfaces.ChatCompletionLLM, sender interfaces.MessageSender) *RespondToUser {
+	return &RespondToUser{
+		Llm:    llm,
+		Sender: sender,
+	}
+}

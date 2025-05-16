@@ -23,12 +23,8 @@ func (s *WabaMessageSender) Send(m *entities.MessageEntity) error {
 	return nil
 }
 
-func NewWabaMessageSender() (interfaces.MessageSender, error) {
-	wabaApi, err := wabaapi.NewWabaApi()
-	if err != nil {
-		return nil, err
-	}
+func NewWabaMessageSender(api *wabaapi.WabaApi) (interfaces.MessageSender, error) {
 	return &WabaMessageSender{
-		Api: wabaApi,
+		Api: api,
 	}, nil
 }
