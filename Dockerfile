@@ -21,4 +21,4 @@ RUN go mod download
 EXPOSE 8080
 
 # Default to bash for interactive development
-CMD ["go", "run", "cmd/api/main.go"]
+CMD ["go", "run", "cmd/dummy/main.go"]

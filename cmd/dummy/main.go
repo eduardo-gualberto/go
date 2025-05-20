@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	db "github.com/eduardo-gualberto/go.git/infra/db/gen"
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
 )
@@ -30,10 +31,12 @@ func main() {
 	}
 	defer conn.Close(context.Background())
 
-	var result string
-	if err = conn.QueryRow(context.Background(), "select version();").Scan(&result); err != nil {
-		fmt.Printf("Error querying pg: %v", err)
+	q := db.New(conn)
+
+	version, err := q.GetVersion(context.Background())
+	if err != nil {
+		fmt.Printf("error getting version: %v", err)
 		return
 	}
-	fmt.Printf("Result is: %s\n", result)
+	fmt.Print(version)
 }
