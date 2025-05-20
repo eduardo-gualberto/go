@@ -8,12 +8,12 @@ import (
 
 	"github.com/eduardo-gualberto/go.git/core/interfaces"
 	"github.com/eduardo-gualberto/go.git/core/usecases"
-	"github.com/eduardo-gualberto/go.git/gateways/messagereaders"
+	"github.com/eduardo-gualberto/go.git/gateways/interfaceimpls/messagereaders"
 	"github.com/eduardo-gualberto/go.git/gateways/models"
 )
 
 type WabaHandler struct {
-	RespondToUser *usecases.RespondToUser
+	RespondToUser usecases.RespondToUser
 }
 
 func (h *WabaHandler) HandleAuthenticate(w http.ResponseWriter, r *http.Request) {
@@ -83,22 +83,16 @@ func (h *WabaHandler) HandleMessage(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println()
 
-	result, err := h.RespondToUser.Execute(&usecases.RespondToUserInput{
-		Reader: msgReader,
-	})
+	err = h.RespondToUser.Execute(msgReader)
 	if err != nil {
 		fmt.Printf("Error executing respond to user use case: %v\n", err)
-		return
-	}
-	if result == nil {
-		fmt.Println("respond to user use case returned result nil")
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
 }
 
-func NewWabaHandler(usecase *usecases.RespondToUser) *WabaHandler {
+func NewWabaHandler(usecase usecases.RespondToUser) *WabaHandler {
 	return &WabaHandler{
 		RespondToUser: usecase,
 	}

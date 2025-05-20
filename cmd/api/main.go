@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	coredx "github.com/eduardo-gualberto/go.git/core/dx"
 	gatewaysdx "github.com/eduardo-gualberto/go.git/gateways/dx"
 	"github.com/eduardo-gualberto/go.git/gateways/handlers/wabahandler"
 	infradx "github.com/eduardo-gualberto/go.git/infra/dx"
@@ -20,7 +19,6 @@ func init() {
 
 func main() {
 	fx.New(
-		coredx.Module,
 		infradx.Module,
 		gatewaysdx.Module,
 		fx.Invoke(func(wh *wabahandler.WabaHandler) {

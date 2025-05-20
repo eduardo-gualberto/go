@@ -1,6 +1,7 @@
 package entities
 
 type MessageEntity struct {
+	ID      int
 	From    string
 	To      string
 	Content string
