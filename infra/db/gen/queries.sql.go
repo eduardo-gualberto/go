@@ -9,6 +9,81 @@ import (
 	"context"
 )
 
+const createParticipant = `-- name: CreateParticipant :one
+INSERT INTO participants(
+    participant_number, participant_name, user_id
+    ) VALUES (
+        $1, $2, $3
+    ) RETURNING id, participant_number, participant_name, user_id
+`
+
+type CreateParticipantParams struct {
+	ParticipantNumber string
+	ParticipantName   string
+	UserID            int32
+}
+
+func (q *Queries) CreateParticipant(ctx context.Context, arg CreateParticipantParams) (Participant, error) {
+	row := q.db.QueryRow(ctx, createParticipant, arg.ParticipantNumber, arg.ParticipantName, arg.UserID)
+	var i Participant
+	err := row.Scan(
+		&i.ID,
+		&i.ParticipantNumber,
+		&i.ParticipantName,
+		&i.UserID,
+	)
+	return i, err
+}
+
+const createUser = `-- name: CreateUser :one
+INSERT INTO users(
+    user_number, user_name
+    ) VALUES (
+        $1, $2
+    ) RETURNING id, user_number, user_name
+`
+
+type CreateUserParams struct {
+	UserNumber string
+	UserName   string
+}
+
+func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
+	row := q.db.QueryRow(ctx, createUser, arg.UserNumber, arg.UserName)
+	var i User
+	err := row.Scan(&i.ID, &i.UserNumber, &i.UserName)
+	return i, err
+}
+
+const getParticipantByID = `-- name: GetParticipantByID :one
+SELECT id, participant_number, participant_name, user_id FROM participants
+WHERE id = $1
+`
+
+func (q *Queries) GetParticipantByID(ctx context.Context, id int64) (Participant, error) {
+	row := q.db.QueryRow(ctx, getParticipantByID, id)
+	var i Participant
+	err := row.Scan(
+		&i.ID,
+		&i.ParticipantNumber,
+		&i.ParticipantName,
+		&i.UserID,
+	)
+	return i, err
+}
+
+const getUserByID = `-- name: GetUserByID :one
+SELECT id, user_number, user_name FROM users
+WHERE id = $1
+`
+
+func (q *Queries) GetUserByID(ctx context.Context, id int64) (User, error) {
+	row := q.db.QueryRow(ctx, getUserByID, id)
+	var i User
+	err := row.Scan(&i.ID, &i.UserNumber, &i.UserName)
+	return i, err
+}
+
 const getVersion = `-- name: GetVersion :one
 SELECT VERSION() AS version
 `

@@ -6,6 +6,8 @@ import (
 	"github.com/eduardo-gualberto/go.git/gateways/handlers/wabahandler"
 	"github.com/eduardo-gualberto/go.git/gateways/interfaceimpls/chatcompletionllms"
 	"github.com/eduardo-gualberto/go.git/gateways/interfaceimpls/messagesenders"
+	"github.com/eduardo-gualberto/go.git/gateways/repositories/participantrepo"
+	"github.com/eduardo-gualberto/go.git/gateways/repositories/userrepo"
 	"github.com/eduardo-gualberto/go.git/gateways/usecaseimpls"
 	"go.uber.org/fx"
 )
@@ -27,5 +29,21 @@ var Module = fx.Module(
 		usecaseimpls.NewRespondToUserImpl,
 		fx.ParamTags(`name:"chatcompletion_openai"`, `name:"sender_openai"`),
 		fx.As(new(usecases.RespondToUser)),
+	)),
+	fx.Provide(fx.Annotate(
+		participantrepo.NewParticipantRepoImpl,
+		fx.As(new(participantrepo.ParticipantRepo)),
+	)),
+	fx.Provide(fx.Annotate(
+		usecaseimpls.NewCreateParticipantImpl,
+		fx.As(new(usecases.CreateParticipant)),
+	)),
+	fx.Provide(fx.Annotate(
+		userrepo.NewUserRepoImpl,
+		fx.As(new(userrepo.UserRepo)),
+	)),
+	fx.Provide(fx.Annotate(
+		usecaseimpls.NewCreateUserImpl,
+		fx.As(new(usecases.CreateUser)),
 	)),
 )
