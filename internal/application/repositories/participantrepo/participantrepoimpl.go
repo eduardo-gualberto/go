@@ -5,7 +5,7 @@ import (
 
 	"github.com/eduardo-gualberto/go.git/internal/application/mappers"
 	"github.com/eduardo-gualberto/go.git/internal/core/entities"
-	db "github.com/eduardo-gualberto/go.git/internal/infra/db/gen"
+	db "github.com/eduardo-gualberto/go.git/third_party/sqlc/gen"
 	"github.com/jackc/pgx/v5"
 )
 

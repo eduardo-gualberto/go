@@ -2,7 +2,7 @@ package mappers
 
 import (
 	"github.com/eduardo-gualberto/go.git/internal/core/entities"
-	db "github.com/eduardo-gualberto/go.git/internal/infra/db/gen"
+	db "github.com/eduardo-gualberto/go.git/third_party/sqlc/gen"
 )
 
 func ParticipantDb2Entity(p *db.Participant) *entities.ParticipantEntity {

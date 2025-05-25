@@ -3,7 +3,7 @@ package mappers
 import (
 	"github.com/eduardo-gualberto/go.git/internal/core/entities"
 
-	db "github.com/eduardo-gualberto/go.git/internal/infra/db/gen"
+	db "github.com/eduardo-gualberto/go.git/third_party/sqlc/gen"
 )
 
 // UserDb2Entity maps a db.User to a domain UserEntity.
