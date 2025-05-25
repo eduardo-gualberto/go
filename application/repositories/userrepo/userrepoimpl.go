@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/eduardo-gualberto/go.git/application/mappers"
 	"github.com/eduardo-gualberto/go.git/core/entities"
-	"github.com/eduardo-gualberto/go.git/gateways/mappers"
 	db "github.com/eduardo-gualberto/go.git/infra/db/gen"
 	"github.com/jackc/pgx/v5"
 )

@@ -1,8 +1,8 @@
 package usecaseimpls
 
 import (
+	"github.com/eduardo-gualberto/go.git/application/repositories/participantrepo"
 	"github.com/eduardo-gualberto/go.git/core/entities"
-	"github.com/eduardo-gualberto/go.git/gateways/repositories/participantrepo"
 )
 
 type CreateParticipantImpl struct {

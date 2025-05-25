@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	gatewaysdx "github.com/eduardo-gualberto/go.git/gateways/dx"
-	"github.com/eduardo-gualberto/go.git/gateways/handlers/wabahandler"
+	appdx "github.com/eduardo-gualberto/go.git/application/dx"
+	"github.com/eduardo-gualberto/go.git/application/handlers/wabahandler"
 	infradx "github.com/eduardo-gualberto/go.git/infra/dx"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
@@ -20,7 +20,7 @@ func init() {
 func main() {
 	fx.New(
 		infradx.Module,
-		gatewaysdx.Module,
+		appdx.Module,
 		fx.Invoke(func(wh *wabahandler.WabaHandler) {
 			http.HandleFunc("GET /webhook", wh.HandleAuthenticate)
 			http.HandleFunc("POST /webhook", wh.HandleMessage)

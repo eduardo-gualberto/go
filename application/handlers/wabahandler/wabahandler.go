@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/eduardo-gualberto/go.git/application/gateways/interfaceimpls/messagereaders"
+	"github.com/eduardo-gualberto/go.git/application/models"
 	"github.com/eduardo-gualberto/go.git/core/interfaces"
 	"github.com/eduardo-gualberto/go.git/core/usecases"
-	"github.com/eduardo-gualberto/go.git/gateways/interfaceimpls/messagereaders"
-	"github.com/eduardo-gualberto/go.git/gateways/models"
 )
 
 type WabaHandler struct {

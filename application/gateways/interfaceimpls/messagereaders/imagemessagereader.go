@@ -3,9 +3,9 @@ package messagereaders
 import (
 	"fmt"
 
+	"github.com/eduardo-gualberto/go.git/application/models"
 	"github.com/eduardo-gualberto/go.git/core/entities"
 	"github.com/eduardo-gualberto/go.git/core/interfaces"
-	"github.com/eduardo-gualberto/go.git/gateways/models"
 )
 
 type ImageMessageReader struct {

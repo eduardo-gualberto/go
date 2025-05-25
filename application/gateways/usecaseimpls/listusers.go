@@ -1,8 +1,8 @@
 package usecaseimpls
 
 import (
+	"github.com/eduardo-gualberto/go.git/application/repositories/userrepo"
 	"github.com/eduardo-gualberto/go.git/core/entities"
-	"github.com/eduardo-gualberto/go.git/gateways/repositories/userrepo"
 )
 
 // ListUsersImpl implements the ListUsers use case.

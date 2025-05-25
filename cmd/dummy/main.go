@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
+	appdx "github.com/eduardo-gualberto/go.git/application/dx"
 	"github.com/eduardo-gualberto/go.git/core/usecases"
-	gatewaysdx "github.com/eduardo-gualberto/go.git/gateways/dx"
 	infradx "github.com/eduardo-gualberto/go.git/infra/dx"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
@@ -19,7 +19,7 @@ func init() {
 func main() {
 	fx.New(
 		infradx.Module,
-		gatewaysdx.Module,
+		appdx.Module,
 		fx.Invoke(func(p usecases.CreateParticipant, u usecases.ListUsers, l usecases.ListParticipants) {
 			users, err := u.Execute()
 			if err != nil {
@@ -31,10 +31,6 @@ func main() {
 					continue
 				}
 				fmt.Println("Nil value passed")
-			}
-			eduardo := users[0]
-			if err = p.Execute("5534991773442", "participante do eduardo", eduardo.ID); err != nil {
-				panic(err)
 			}
 			participants, err := l.Execute()
 			if err != nil {

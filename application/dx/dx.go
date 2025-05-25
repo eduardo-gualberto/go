@@ -1,14 +1,14 @@
 package dx
 
 import (
+	"github.com/eduardo-gualberto/go.git/application/gateways/interfaceimpls/chatcompletionllms"
+	"github.com/eduardo-gualberto/go.git/application/gateways/interfaceimpls/messagesenders"
+	"github.com/eduardo-gualberto/go.git/application/gateways/usecaseimpls"
+	"github.com/eduardo-gualberto/go.git/application/handlers/wabahandler"
+	"github.com/eduardo-gualberto/go.git/application/repositories/participantrepo"
+	"github.com/eduardo-gualberto/go.git/application/repositories/userrepo"
 	"github.com/eduardo-gualberto/go.git/core/interfaces"
 	"github.com/eduardo-gualberto/go.git/core/usecases"
-	"github.com/eduardo-gualberto/go.git/gateways/handlers/wabahandler"
-	"github.com/eduardo-gualberto/go.git/gateways/interfaceimpls/chatcompletionllms"
-	"github.com/eduardo-gualberto/go.git/gateways/interfaceimpls/messagesenders"
-	"github.com/eduardo-gualberto/go.git/gateways/repositories/participantrepo"
-	"github.com/eduardo-gualberto/go.git/gateways/repositories/userrepo"
-	"github.com/eduardo-gualberto/go.git/gateways/usecaseimpls"
 	"go.uber.org/fx"
 )
 
