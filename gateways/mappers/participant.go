@@ -15,7 +15,7 @@ func ParticipantDb2Entity(p *db.Participant) *entities.ParticipantEntity {
 }
 
 func ParticipantListDb2Entity(ps []db.Participant) []*entities.ParticipantEntity {
-	out := make([]*entities.ParticipantEntity, len(ps))
+	out := make([]*entities.ParticipantEntity, 0)
 	for _, p := range ps {
 		out = append(out, ParticipantDb2Entity(&p))
 	}

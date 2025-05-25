@@ -46,4 +46,12 @@ var Module = fx.Module(
 		usecaseimpls.NewCreateUserImpl,
 		fx.As(new(usecases.CreateUser)),
 	)),
+	fx.Provide(fx.Annotate(
+		usecaseimpls.NewListUsersImpl,
+		fx.As(new(usecases.ListUsers)),
+	)),
+	fx.Provide(fx.Annotate(
+		usecaseimpls.NewListParticipantsImpl,
+		fx.As(new(usecases.ListParticipants)),
+	)),
 )

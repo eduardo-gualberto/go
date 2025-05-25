@@ -17,7 +17,7 @@ func UserDb2Entity(u *db.User) *entities.UserEntity {
 
 // UserListDb2Entity maps a slice of db.User to a slice of domain UserEntity pointers.
 func UserListDb2Entity(us []db.User) []*entities.UserEntity {
-	out := make([]*entities.UserEntity, len(us))
+	out := make([]*entities.UserEntity, 0)
 	for _, u := range us {
 		out = append(out, UserDb2Entity(&u))
 	}
