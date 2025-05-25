@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	appdx "github.com/eduardo-gualberto/go.git/application/dx"
-	"github.com/eduardo-gualberto/go.git/application/handlers/wabahandler"
-	infradx "github.com/eduardo-gualberto/go.git/infra/dx"
+	appdx "github.com/eduardo-gualberto/go.git/internal/application/dx"
+	"github.com/eduardo-gualberto/go.git/internal/application/handlers/wabahandler"
+	infradx "github.com/eduardo-gualberto/go.git/internal/infra/dx"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 )

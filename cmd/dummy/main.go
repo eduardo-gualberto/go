@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	appdx "github.com/eduardo-gualberto/go.git/application/dx"
-	"github.com/eduardo-gualberto/go.git/core/usecases"
-	infradx "github.com/eduardo-gualberto/go.git/infra/dx"
+	appdx "github.com/eduardo-gualberto/go.git/internal/application/dx"
+	"github.com/eduardo-gualberto/go.git/internal/core/usecases"
+	infradx "github.com/eduardo-gualberto/go.git/internal/infra/dx"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 )
