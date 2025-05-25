@@ -18,16 +18,13 @@ var Module = fx.Module(
 	fx.Provide(fx.Annotate(
 		chatcompletionllms.NewOpenAiLLM,
 		fx.As(new(interfaces.ChatCompletionLLM)),
-		fx.ResultTags(`name:"chatcompletion_openai"`),
 	)),
 	fx.Provide(fx.Annotate(
 		messagesenders.NewWabaMessageSender,
 		fx.As(new(interfaces.MessageSender)),
-		fx.ResultTags(`name:"sender_openai"`),
 	)),
 	fx.Provide(fx.Annotate(
 		usecaseimpls.NewRespondToUserImpl,
-		fx.ParamTags(`name:"chatcompletion_openai"`, `name:"sender_openai"`),
 		fx.As(new(usecases.RespondToUser)),
 	)),
 	fx.Provide(fx.Annotate(
