@@ -4,6 +4,23 @@
 
 package db
 
+import (
+	"github.com/jackc/pgx/v5/pgtype"
+)
+
+type Event struct {
+	ID            int64
+	ParticipantID int64
+	UserID        int64
+	Rrule         pgtype.Text
+}
+
+type Occurrence struct {
+	ID       int64
+	EventID  int64
+	OccursAt pgtype.Timestamptz
+}
+
 type Participant struct {
 	ID                int64
 	ParticipantNumber string

@@ -15,4 +15,15 @@ CREATE TABLE participants (
 	CONSTRAINT participants_pkey PRIMARY KEY (id)
 );
 
-ALTER TABLE participants ADD CONSTRAINT participants_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+CREATE TABLE events (
+    id              BIGSERIAL PRIMARY KEY,
+    participant_id  BIGINT      NOT NULL,
+    user_id         BIGINT      NOT NULL,
+    rrule           TEXT
+);
+
+CREATE TABLE occurrences (
+    id          BIGSERIAL PRIMARY KEY,
+    event_id    BIGINT       NOT NULL,
+    occurs_at   TIMESTAMPTZ  NOT NULL
+);

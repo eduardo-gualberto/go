@@ -5,6 +5,8 @@ import (
 	"github.com/eduardo-gualberto/go.git/internal/application/gateways/interfaceimpls/messagesenders"
 	"github.com/eduardo-gualberto/go.git/internal/application/gateways/usecaseimpls"
 	"github.com/eduardo-gualberto/go.git/internal/application/handlers/wabahandler"
+	"github.com/eduardo-gualberto/go.git/internal/application/repositories/eventrepo"
+	"github.com/eduardo-gualberto/go.git/internal/application/repositories/occurrencerepo"
 	"github.com/eduardo-gualberto/go.git/internal/application/repositories/participantrepo"
 	"github.com/eduardo-gualberto/go.git/internal/application/repositories/userrepo"
 	"github.com/eduardo-gualberto/go.git/internal/core/interfaces"
@@ -50,5 +52,13 @@ var Module = fx.Module(
 	fx.Provide(fx.Annotate(
 		usecaseimpls.NewListParticipantsImpl,
 		fx.As(new(usecases.ListParticipants)),
+	)),
+	fx.Provide(fx.Annotate(
+		eventrepo.NewEventRepoImpl,
+		fx.As(new(eventrepo.EventRepo)),
+	)),
+	fx.Provide(fx.Annotate(
+		occurrencerepo.NewOccurrenceRepoImpl,
+		fx.As(new(occurrencerepo.OccurrenceRepo)),
 	)),
 )

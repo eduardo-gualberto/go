@@ -28,3 +28,23 @@ INSERT INTO participants(
 
 -- name: GetVersion :one
 SELECT VERSION() AS version;
+
+-- name: ListEvents :many
+SELECT * FROM events;
+
+-- name: CreateEvent :one
+INSERT INTO events(
+    participant_id, user_id, rrule
+    ) VALUES (
+        $1, $2, $3
+    ) RETURNING *;
+
+-- name: ListOccurrences :many
+SELECT * FROM occurrences;
+
+-- name: CreateOccurrence :one
+INSERT INTO occurrences(
+    event_id, occurs_at
+    ) VALUES (
+        $1, $2
+    ) RETURNING *;

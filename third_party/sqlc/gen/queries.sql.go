@@ -7,7 +7,55 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
+
+const createEvent = `-- name: CreateEvent :one
+INSERT INTO events(
+    participant_id, user_id, rrule
+    ) VALUES (
+        $1, $2, $3
+    ) RETURNING id, participant_id, user_id, rrule
+`
+
+type CreateEventParams struct {
+	ParticipantID int64
+	UserID        int64
+	Rrule         pgtype.Text
+}
+
+func (q *Queries) CreateEvent(ctx context.Context, arg CreateEventParams) (Event, error) {
+	row := q.db.QueryRow(ctx, createEvent, arg.ParticipantID, arg.UserID, arg.Rrule)
+	var i Event
+	err := row.Scan(
+		&i.ID,
+		&i.ParticipantID,
+		&i.UserID,
+		&i.Rrule,
+	)
+	return i, err
+}
+
+const createOccurrence = `-- name: CreateOccurrence :one
+INSERT INTO occurrences(
+    event_id, occurs_at
+    ) VALUES (
+        $1, $2
+    ) RETURNING id, event_id, occurs_at
+`
+
+type CreateOccurrenceParams struct {
+	EventID  int64
+	OccursAt pgtype.Timestamptz
+}
+
+func (q *Queries) CreateOccurrence(ctx context.Context, arg CreateOccurrenceParams) (Occurrence, error) {
+	row := q.db.QueryRow(ctx, createOccurrence, arg.EventID, arg.OccursAt)
+	var i Occurrence
+	err := row.Scan(&i.ID, &i.EventID, &i.OccursAt)
+	return i, err
+}
 
 const createParticipant = `-- name: CreateParticipant :one
 INSERT INTO participants(
@@ -93,6 +141,59 @@ func (q *Queries) GetVersion(ctx context.Context) (string, error) {
 	var version string
 	err := row.Scan(&version)
 	return version, err
+}
+
+const listEvents = `-- name: ListEvents :many
+SELECT id, participant_id, user_id, rrule FROM events
+`
+
+func (q *Queries) ListEvents(ctx context.Context) ([]Event, error) {
+	rows, err := q.db.Query(ctx, listEvents)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Event
+	for rows.Next() {
+		var i Event
+		if err := rows.Scan(
+			&i.ID,
+			&i.ParticipantID,
+			&i.UserID,
+			&i.Rrule,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listOccurrences = `-- name: ListOccurrences :many
+SELECT id, event_id, occurs_at FROM occurrences
+`
+
+func (q *Queries) ListOccurrences(ctx context.Context) ([]Occurrence, error) {
+	rows, err := q.db.Query(ctx, listOccurrences)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Occurrence
+	for rows.Next() {
+		var i Occurrence
+		if err := rows.Scan(&i.ID, &i.EventID, &i.OccursAt); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const listParticipants = `-- name: ListParticipants :many
