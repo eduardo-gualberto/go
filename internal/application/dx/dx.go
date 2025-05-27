@@ -58,6 +58,22 @@ var Module = fx.Module(
 		fx.As(new(eventrepo.EventRepo)),
 	)),
 	fx.Provide(fx.Annotate(
+		usecaseimpls.NewCreateEventImpl,
+		fx.As(new(usecases.CreateEvent)),
+	)),
+	fx.Provide(fx.Annotate(
+		usecaseimpls.NewListEventsImpl,
+		fx.As(new(usecases.ListEvents)),
+	)),
+	fx.Provide(fx.Annotate(
+		usecaseimpls.NewCreateOccurrenceImpl,
+		fx.As(new(usecases.CreateOccurrence)),
+	)),
+	fx.Provide(fx.Annotate(
+		usecaseimpls.NewListOccurrencesImpl,
+		fx.As(new(usecases.ListOccurrences)),
+	)),
+	fx.Provide(fx.Annotate(
 		occurrencerepo.NewOccurrenceRepoImpl,
 		fx.As(new(occurrencerepo.OccurrenceRepo)),
 	)),
