@@ -1,4 +1,3 @@
 # TODOs
- - create the remaining core structure (events, etc.)
- - create use cases to create and list event
+ - create unit tests for all usecases
  - refactor all listing usecases and queries to include at least one filter
