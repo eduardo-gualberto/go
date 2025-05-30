@@ -3,6 +3,7 @@ package usecaseimpls
 import (
 	"github.com/eduardo-gualberto/go.git/internal/application/repositories/participantrepo"
 	"github.com/eduardo-gualberto/go.git/internal/core/entities"
+	"github.com/eduardo-gualberto/go.git/internal/core/usecases"
 )
 
 // ListParticipantsImpl implements the ListParticipants use case.
@@ -11,7 +12,7 @@ type ListParticipantsImpl struct {
 }
 
 // NewListParticipantsImpl constructs a new ListParticipantsImpl with the given ParticipantRepo.
-func NewListParticipantsImpl(r participantrepo.ParticipantRepo) *ListParticipantsImpl {
+func NewListParticipantsImpl(r participantrepo.ParticipantRepo) usecases.ListParticipants {
 	return &ListParticipantsImpl{repo: r}
 }
 

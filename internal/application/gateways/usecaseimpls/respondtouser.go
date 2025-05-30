@@ -5,6 +5,7 @@ import (
 
 	"github.com/eduardo-gualberto/go.git/internal/core/entities"
 	"github.com/eduardo-gualberto/go.git/internal/core/interfaces"
+	"github.com/eduardo-gualberto/go.git/internal/core/usecases"
 )
 
 type RespondToUserImpl struct {
@@ -42,7 +43,7 @@ func (u RespondToUserImpl) Execute(reader interfaces.MessageReader) error {
 	return nil
 }
 
-func NewRespondToUserImpl(llm interfaces.ChatCompletionLLM, sender interfaces.MessageSender) *RespondToUserImpl {
+func NewRespondToUserImpl(llm interfaces.ChatCompletionLLM, sender interfaces.MessageSender) usecases.RespondToUser {
 	return &RespondToUserImpl{
 		Llm:    llm,
 		Sender: sender,

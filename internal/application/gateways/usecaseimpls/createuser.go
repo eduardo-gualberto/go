@@ -3,6 +3,7 @@ package usecaseimpls
 import (
 	"github.com/eduardo-gualberto/go.git/internal/application/repositories/userrepo"
 	"github.com/eduardo-gualberto/go.git/internal/core/entities"
+	"github.com/eduardo-gualberto/go.git/internal/core/usecases"
 )
 
 // CreateUserImpl implements the CreateUser use case.
@@ -11,7 +12,7 @@ type CreateUserImpl struct {
 }
 
 // NewCreateUserImpl constructs a new CreateUserImpl with the given UserRepo.
-func NewCreateUserImpl(r userrepo.UserRepo) *CreateUserImpl {
+func NewCreateUserImpl(r userrepo.UserRepo) usecases.CreateUser {
 	return &CreateUserImpl{repo: r}
 }
 
